@@ -1,80 +1,97 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+
+// 1. Import Controller của KHÁCH
+use App\Http\Controllers\BookingController; 
+
+// 2. Import Controller của ADMIN
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\StaffController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\BookingController;
-use Illuminate\Support\Facades\Route;
 
-// --- QUAN TRỌNG: Thêm các dòng này để gọi Model ---
+// 3. Import Models
 use App\Models\Service;
 use App\Models\Staff;
-use App\Models\Appointment; 
-// ------------------------------------------------
+use App\Models\Appointment;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
-    return view("welcome");
+    return view('welcome');
 });
 
-// Nhóm chức năng Đăng nhập
+// ====================================================
+// NHÓM 1: ĐĂNG NHẬP & DASHBOARD CHUNG
+// ====================================================
 Route::middleware(['auth', 'verified'])->group(function () {
     
-    // --- SỬA ĐOẠN NÀY ---
+    // Route xử lý trang chủ sau khi đăng nhập
     Route::get('/dashboard', function () {
-        // Kiểm tra nếu là Admin
+        
+        // A. NẾU LÀ ADMIN -> Trả về View Thống Kê
         if (auth()->user()->role === 'admin') {
-            
-            // 1. Lấy số liệu thống kê
             $totalServices = Service::count();
             $totalStaff = Staff::count();
-           $todayAppointments = Appointment::whereDate('start_time', now()->toDateString())->count();
+            // Lưu ý: Đảm bảo bạn có model Appointment hoặc đổi thành Booking tùy DB
+            $todayAppointments = Appointment::whereDate('start_time', now()->toDateString())->count();
 
-            // 2. Lấy 5 lịch hẹn mới nhất để hiện ở "Quản lý nhanh"
-            // (Giả sử bạn đã tạo quan hệ: appointment -> user, service, staff)
-           $recentAppointments = Appointment::with(['user', 'service', 'staff'])
-                        ->orderBy('start_time', 'desc') // Sắp xếp theo giờ bắt đầu là đủ
-                        ->take(5)
-                        ->get();
+            $recentAppointments = Appointment::with(['user', 'service', 'staff'])
+                                    ->orderBy('start_time', 'desc')
+                                    ->take(5)
+                                    ->get();
 
-            // Truyền biến sang view admin.dashboard
             return view('admin.dashboard', compact('totalServices', 'totalStaff', 'todayAppointments', 'recentAppointments'));
         }
 
-        // Nếu là khách hàng -> chuyển sang trang đặt lịch
-        return redirect()->route('admin.booking.index');
+        // B. NẾU LÀ KHÁCH HÀNG
+        return view('customer.dashboard'); 
+
     })->name('dashboard');
-    // ---------------------
 
-    // Chức năng Đặt lịch
+    // ====================================================
+    // NHÓM 2: CHỨC NĂNG CHO KHÁCH HÀNG (Customer)
+    // ====================================================
     
-    Route::get('/booking', function (){
-    return view("admin.bookings.index");
-})->name('admin.booking.index');
-
-    Route::post('/booking/get-slots', [BookingController::class, 'getSlots'])->name('get.slots');
+    // 1. Trang Form đặt lịch
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+    
+    // 2. Xử lý lưu lịch vào Database
     Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+    
+    // 3. Xem lịch sử đặt chỗ
+    Route::get('/my-bookings', [BookingController::class, 'history'])->name('booking.history');
 
-    // Profile
+    // 4. API lấy giờ rảnh (ĐÃ CHUYỂN LÊN ĐÂY LÀ ĐÚNG)
+    // Đường dẫn sẽ là: /get-available-time (Khớp với Javascript)
+    Route::get('/get-available-time', [BookingController::class, 'getAvailableTime'])->name('get.available.time');
+
+    // 5. Quản lý Profile cá nhân
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// --- NHÓM ADMIN ---
+// ====================================================
+// NHÓM 3: CHỨC NĂNG QUẢN TRỊ (ADMIN)
+// ====================================================
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    // Route Dịch vụ
+    
+    // Quản lý Dịch vụ
     Route::resource('services', ServiceController::class);
-    // Route Nhân viên
+    
+    // Quản lý Nhân viên
     Route::resource('staff', StaffController::class);
-    // Route Booking
-   // 1. Xem danh sách
-    Route::get('/bookings', [\App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings.index');
-    
-    // 2. Duyệt lịch
-    Route::patch('/bookings/{id}/approve', [\App\Http\Controllers\Admin\BookingController::class, 'approve'])->name('bookings.approve');
-    
-    // 3. Hủy lịch
-    Route::patch('/bookings/{id}/cancel', [\App\Http\Controllers\Admin\BookingController::class, 'cancel'])->name('bookings.cancel');
+
+    // Quản lý Booking (Duyệt/Hủy)
+    Route::get('/bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+    Route::patch('/bookings/{id}/approve', [AdminBookingController::class, 'approve'])->name('bookings.approve');
+    Route::patch('/bookings/{id}/cancel', [AdminBookingController::class, 'cancel'])->name('bookings.cancel');
 });
 
 require __DIR__.'/auth.php';

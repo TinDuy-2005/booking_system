@@ -9,7 +9,7 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2">Họ và Tên</label>
                         <input type="text" name="name" value="{{ $staff->name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                     </div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Cập Nhật</button>
+                    <button class="ml-4 text-gray-600" type="submit">Cập Nhật</button>
                     <a href="{{ route('admin.staff.index') }}" class="ml-4 text-gray-600">Hủy</a>
                 </form>
             </div>

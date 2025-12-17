@@ -15,9 +15,11 @@
             @endif
 
             <div class="flex justify-end mb-4">
-                <a href="{{ route('admin.staff.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    + Thêm Nhân Viên
-                </a>
+                <a href="{{ route('admin.staff.create') }}" 
+   style="background-color: #0ea5e9; color: white; padding: 8px 16px; border-radius: 6px; font-weight: bold; text-decoration: none; display: inline-block;"
+   class="shadow hover:opacity-90">
+    + Thêm Nhân Viên Mới
+</a>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

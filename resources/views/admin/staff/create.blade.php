@@ -7,7 +7,8 @@
                 <label class="block font-bold mb-2">Họ Tên</label>
                 <input type="text" name="name" class="border rounded w-full py-2 px-3" required>
             </div>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Lưu lại</button>
+             <a href="{{ route('admin.staff.index') }}" class="text-gray-600 hover:text-gray-900 mr-4">Hủy bỏ</a>
+            <button type="submit" class="text-gray-600 hover:text-gray-900 mr-4">Lưu </button>
         </form>
     </div></div>
 </x-app-layout>

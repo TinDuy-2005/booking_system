@@ -11,15 +11,16 @@ class BookingController extends Controller
     // 1. Hiển thị danh sách lịch hẹn
     public function index()
     {
-        // Lấy lịch hẹn mới nhất lên đầu, phân trang 10 dòng
         $bookings = Appointment::with(['user', 'service', 'staff'])
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
 
+        // QUAN TRỌNG: Đảm bảo tên này khớp với tên thư mục view của bạn
+        // Nếu thư mục là 'bookings' (số nhiều) thì phải viết là 'admin.bookings.index'
         return view('admin.bookings.index', compact('bookings'));
     }
 
-    // 2. Duyệt lịch (Chuyển status -> confirmed)
+    // 2. Duyệt lịch
     public function approve($id)
     {
         $booking = Appointment::findOrFail($id);
@@ -29,7 +30,7 @@ class BookingController extends Controller
         return redirect()->back()->with('success', 'Đã duyệt lịch hẹn thành công!');
     }
 
-    // 3. Hủy lịch (Chuyển status -> cancelled)
+    // 3. Hủy lịch
     public function cancel($id)
     {
         $booking = Appointment::findOrFail($id);

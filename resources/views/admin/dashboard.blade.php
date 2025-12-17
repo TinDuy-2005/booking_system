@@ -27,15 +27,6 @@
                 </div>
             </div>
 
-            <div class="mb-6 flex gap-4">
-                <a href="{{ route('admin.services.index') }}" class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition">
-                    Quản lý Dịch vụ
-                </a>
-                <a href="{{ route('admin.staff.index') }}" class="px-4 py-2 bg-green-600 text-white rounded shadow hover:bg-green-700 transition">
-                    Quản lý Nhân viên
-                </a>
-            </div>
-
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <h3 class="text-lg font-bold mb-4 text-gray-800 border-b pb-2">Lịch hẹn mới nhất</h3>
                 
@@ -85,9 +76,7 @@
                 @else
                     <div class="text-center py-8 text-gray-500 bg-gray-50 rounded border border-dashed border-gray-300">
                         <p>Chưa có lịch hẹn nào sắp tới.</p>
-                        <a href="/booking" class="text-blue-500 hover:underline mt-2 inline-block">
-                            Tạo lịch hẹn thử nghiệm ngay &rarr;
-                        </a>
+                       
                     </div>
                 @endif
             </div>

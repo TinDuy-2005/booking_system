@@ -35,18 +35,17 @@
 
     {{-- CUSTOMER MENU --}}
     @if(auth()->user()->role === 'customer')
-    {{-- 1. Sửa tên route thành booking.index --}}
-  <x-nav-link :href="route('admin.booking.index')" :active="request()->routeIs('admin.booking.*')">
-    Đặt lịch
-</x-nav-link>
+        {{-- 1. Nút Đặt lịch --}}
+        <x-nav-link :href="route('booking.index')" :active="request()->routeIs('booking.index')">
+            {{ __('Đặt lịch') }}
+        </x-nav-link>
 
-    {{-- 2. Tạm thời ẩn "Lịch của tôi" đi vì chúng ta chưa làm trang này (để tránh lỗi tiếp theo) --}}
-    {{-- 
-    <x-nav-link :href="route('customer.bookings.index')" :active="request()->routeIs('customer.bookings.*')">
-        Lịch của tôi
-    </x-nav-link> 
-    --}}
-@endif
+        {{-- 2. Nút Lịch sử  --}}
+        <x-nav-link :href="route('booking.history')" :active="request()->routeIs('booking.history')">
+            {{ __('Lịch sử của tôi') }}
+        </x-nav-link>
+    @endif
+
 
 </div>
 
