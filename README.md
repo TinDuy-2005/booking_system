@@ -1,59 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📅 Hệ Thống Đặt Lịch Dịch Vụ (Service Booking System)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Một ứng dụng web trọn gói xây dựng bằng **Laravel**, cho phép khách hàng đặt lịch hẹn dịch vụ trực tuyến (Salon, Spa, Phòng khám...) và cung cấp công cụ quản lý toàn diện cho chủ cửa hàng.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Giới Thiệu
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Dự án được xây dựng nhằm giải quyết bài toán quản lý lịch hẹn thủ công, giúp:
+- **Khách hàng:** Chủ động chọn dịch vụ, nhân viên và khung giờ rảnh mà không cần gọi điện. Tránh việc đến nơi phải chờ đợi.
+- **Chủ cửa hàng:** Quản lý tập trung, tránh trùng lịch, theo dõi đơn hàng và hiệu suất nhân viên.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Chức Năng Chính
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 👤 Dành cho Khách hàng (Customer)
+- [x] **Đăng ký / Đăng nhập:** Hệ thống tài khoản bảo mật.
+- [x] **Đặt lịch thông minh:**
+  - Chọn Dịch vụ (Tự động tính tổng tiền).
+  - Chọn Nhân viên yêu thích.
+  - Chọn Ngày & Giờ.
+  - **Tự động lọc giờ rảnh (Dynamic Time Slots):** Hệ thống tự động ẩn các giờ đã có người đặt hoặc giờ nghỉ trưa/tối.
+- [x] **Quản lý lịch sử:** Xem danh sách lịch hẹn, theo dõi trạng thái (Chờ duyệt / Đã duyệt / Đã hủy).
+- [x] **Cập nhật hồ sơ:** Chỉnh sửa thông tin cá nhân, đổi mật khẩu.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 👑 Dành cho Quản trị viên (Admin)
+- [x] **Dashboard:** Thống kê tổng quan (Số đơn hàng ngày, tổng số dịch vụ, nhân viên...).
+- [x] **Quản lý Dịch vụ:** Thêm mới, sửa giá tiền, thời gian thực hiện, xóa dịch vụ.
+- [x] **Quản lý Nhân viên:** Thêm, sửa, xóa nhân viên.
+- [x] **Xử lý Đơn hàng:** Xem danh sách lịch hẹn sắp tới, thực hiện **Duyệt** hoặc **Hủy** lịch.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🛠 Công Nghệ Sử Dụng
 
-### Premium Partners
+- **Backend:** Laravel Framework (PHP 8.x+).
+- **Frontend:** Blade Template, Tailwind CSS (Giao diện hiện đại, Responsive).
+- **Database:** MySQL.
+- **Kỹ thuật nổi bật:**
+  - **Fetch API / AJAX:** Xử lý logic chọn giờ Time Slots realtime không cần tải lại trang.
+  - **Authentication:** Laravel Breeze (Phân quyền Admin/User bằng Middleware).
+  - **Algorithm:** Thuật toán kiểm tra trùng lịch (Overlap Check).
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## ⚙️ Hướng Dẫn Cài Đặt & Chạy Dự Án
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Làm theo các bước sau để chạy dự án trên máy local:
 
-## Code of Conduct
+### 1. Yêu cầu hệ thống
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Các bước cài đặt
 
-## Security Vulnerabilities
+**Bước 1: Clone dự án
+```bash
+git clone https://github.com/TinDuy-2005/booking_system.git
+cd booking-system
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Bước 2: Cài đặt các thư viện (Dependencies)
+```bash
+composer install
+npm install
 
-## License
+**Bước 3: Cấu hình môi trường
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+```bash
+cp .env.example .env
+Mở file .env và cấu hình thông tin Database của bạn:
+
+Code snippet
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ten_database_cua_ban
+DB_USERNAME=root
+DB_PASSWORD=
+**Bước 4: Tạo Key và Build giao diện
+
+```bash
+
+php artisan key:generate
+npm run build
+
+**Bước 5: Khởi tạo Database
+
+```bash
+
+php artisan migrate
+php artisan db:seed
+
+**Bước 6: Chạy dự án
+
+```bash
+
+php artisan serve
+Truy cập tại: http://127.0.0.1:8000

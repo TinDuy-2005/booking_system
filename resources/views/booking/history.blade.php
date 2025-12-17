@@ -9,7 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
             <div class="mb-4 flex justify-end">
-                <a href="{{ route('booking.index') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 shadow">
+                <a href="{{ route('booking.index') }}"style="background-color: #0ea5e9; color: white; padding: 8px 16px; border-radius: 6px; font-weight: bold; text-decoration: none; display: inline-block;"
+   class="shadow hover:opacity-90">
                     + Đặt lịch mới
                 </a>
             </div>
