@@ -12,10 +12,44 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+
+    {{-- Dashboard --}}
+    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+        Dashboard
+    </x-nav-link>
+
+    {{-- ADMIN MENU --}}
+    @if(auth()->user()->role === 'admin')
+        <x-nav-link :href="route('admin.services.index')" :active="request()->routeIs('admin.services.*')">
+            Quản lý dịch vụ
+        </x-nav-link>
+
+        <x-nav-link :href="route('admin.staff.index')" :active="request()->routeIs('admin.staff.*')">
+            Nhân viên
+        </x-nav-link>
+
+        <x-nav-link :href="route('admin.bookings.index')" :active="request()->routeIs('admin.bookings.*')">
+            Booking
+        </x-nav-link>
+    @endif
+
+    {{-- CUSTOMER MENU --}}
+    @if(auth()->user()->role === 'customer')
+    {{-- 1. Sửa tên route thành booking.index --}}
+  <x-nav-link :href="route('admin.booking.index')" :active="request()->routeIs('admin.booking.*')">
+    Đặt lịch
+</x-nav-link>
+
+    {{-- 2. Tạm thời ẩn "Lịch của tôi" đi vì chúng ta chưa làm trang này (để tránh lỗi tiếp theo) --}}
+    {{-- 
+    <x-nav-link :href="route('customer.bookings.index')" :active="request()->routeIs('customer.bookings.*')">
+        Lịch của tôi
+    </x-nav-link> 
+    --}}
+@endif
+
+</div>
+
             </div>
 
             <!-- Settings Dropdown -->
