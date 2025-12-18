@@ -75,7 +75,7 @@
                     </span>
                 </h1>
                 <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                    Quản lý lịch hẹn, nhân viên và doanh thu một cách dễ dàng. 
+                    Quản lý lịch hẹn, nhân viên một cách dễ dàng. 
                     Giải pháp tối ưu giúp bạn tiết kiệm thời gian và tăng trưởng kinh doanh.
                 </p>
 

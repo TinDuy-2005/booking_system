@@ -15,8 +15,7 @@ class BookingController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
 
-        // QUAN TRỌNG: Đảm bảo tên này khớp với tên thư mục view của bạn
-        // Nếu thư mục là 'bookings' (số nhiều) thì phải viết là 'admin.bookings.index'
+      
         return view('admin.bookings.index', compact('bookings'));
     }
 

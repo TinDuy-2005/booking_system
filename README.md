@@ -101,3 +101,11 @@ php artisan db:seed
 
 php artisan serve
 Truy cập tại: http://127.0.0.1:8000
+ 
+ *Đăng nhập :
+ Tài khoản :Admin
+  username : admin@gmail.com,
+  password: 12345678
+ Tài khoản :Cutomer
+  username : cutomer@gmail.com,
+  password: 123456
